@@ -20,8 +20,10 @@ class AddDeck extends Component {
   submit = () =>{
     const title = this.state.name;
     let newDeck = {
-      title: title,
-      questions: []
+      [title]:{
+        title: title,
+        questions: []
+      }
     }
     this.props.dispatch(addDeck(newDeck))
     this.setState((state) => {

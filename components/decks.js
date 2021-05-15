@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps ({decks}) {
-  // const key = timeToString()
+  console.log(decks)
 
   return {
     decks
