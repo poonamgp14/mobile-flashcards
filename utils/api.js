@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { receiveDecks } from '../actions'
 export const async_key = 'Flashcard_App'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 export function submitDeck ({ deckName,deck }) {
   try{
@@ -25,13 +26,16 @@ export function removeDeck (key) {
 
 
 export function getData(){
+  console.log('i m in getdata')
     return (dispatch) =>{
       AsyncStorage.clear()
+      // dispatch(showLoading())
       return AsyncStorage.getItem(async_key)
         .then(values =>{
           console.log(values)
           let decks = formatFlashCardResults(values)
           dispatch(receiveDecks(decks))
+          // dispatch(hideLoading())
         })
     }
 }

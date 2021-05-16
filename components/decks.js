@@ -5,9 +5,9 @@ import SubmitBtn from './submitBtn'
 import {getData} from '../utils/api'
 
 class Decks extends Component {
-  componentDidMount(){
-    this.props.dispatch(getData())
-  }
+  // componentDidMount(){
+  //   this.props.dispatch(getData())
+  // }
   toDeck = (name) => {
     console.log(this.props.navigation)
     this.props.navigation.dispatch(CommonActions.navigate({
@@ -42,10 +42,10 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps ({decks}) {
-  console.log(decks)
+function mapStateToProps ({state}) {
+  console.log(state)
   let deckNames = []
-  decks !== undefined ? deckNames = Object.keys(decks) : deckNames = [];
+  // decks !== undefined ? deckNames = Object.keys(decks) : deckNames = [];
 
   return {
     deckNames
