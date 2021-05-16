@@ -28,7 +28,7 @@ class App extends React.Component {
   }
   render(){
     return (
-      // <Provider store={createStore(reducer,middleware)}>
+      <Provider store={createStore(reducer,middleware)}>
       <NavigationContainer>
           <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -61,7 +61,10 @@ class App extends React.Component {
             <Tab.Screen name="Add Deck" component={AddDeck} />
           </Tab.Navigator>
         </NavigationContainer>
-      // </Provider>
+      </Provider>
+      // <View style={styles.container}>
+      //   <Decks/>
+      // </View>
       
     );
         }

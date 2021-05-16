@@ -2,11 +2,21 @@ import React,  { Component }  from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { connect } from "react-redux";
 import SubmitBtn from './submitBtn'
-import {getData} from '../utils/api'
+import {fetchFlashCardResults,getData} from '../utils/api'
+import AppLoading from 'expo-app-loading';
+import { receiveDecks } from '../actions'
 
 class Decks extends Component {
-  // componentDidMount(){
-  //   this.props.dispatch(getData())
+  // state = {
+  //   ready: false
+  // }
+  // componentDidMount() {
+  //   const { dispatch } = this.props
+  //   fetchFlashCardResults()
+  //   .then((decks) => dispatch(receiveDecks(decks)))
+  //   .then(() => this.setState(() => ({
+  //     ready: true
+  //   })))
   // }
   toDeck = (name) => {
     console.log(this.props.navigation)
@@ -17,13 +27,18 @@ class Decks extends Component {
     )
   }
   render(){
+    // const { ready } = this.state;
+    // if (ready === false) {
+    //     return <AppLoading />
+    // }
     return (
       <View style={styles.container}>
         <Text>
         {this.props.deckNames.length > 0 ?
         this.props.deckNames.map(name =>{
           return (
-            <SubmitBtn onPress={this.toDeck(name)} text={name} />
+            name
+            // <SubmitBtn onPress={this.toDeck(name)} text={name} />
           )
         }) : "No Decks are created yet!"
       }</Text>
@@ -42,10 +57,11 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps ({state}) {
-  console.log(state)
+function mapStateToProps (decks) {
+  console.log('i m in decks')
+  console.log(decks)
   let deckNames = []
-  // decks !== undefined ? deckNames = Object.keys(decks) : deckNames = [];
+  decks !== undefined ? deckNames = Object.keys(decks) : deckNames = [];
 
   return {
     deckNames

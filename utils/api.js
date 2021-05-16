@@ -29,7 +29,7 @@ export function getData(){
   console.log('i m in getdata')
     return (dispatch) =>{
       AsyncStorage.clear()
-      // dispatch(showLoading())
+      dispatch(showLoading())
       return AsyncStorage.getItem(async_key)
         .then(values =>{
           console.log(values)
@@ -38,6 +38,11 @@ export function getData(){
           // dispatch(hideLoading())
         })
     }
+}
+export function fetchFlashCardResults () {
+  AsyncStorage.clear()
+  return AsyncStorage.getItem(async_key)
+  .then(formatFlashCardResults)
 }
 
 

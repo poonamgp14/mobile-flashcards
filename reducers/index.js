@@ -2,9 +2,9 @@ import {ADD_DECK} from '../actions'
 import {RECEIVE_DECKS} from '../actions'
 
 function decks(state={},action){
-	console.log('state')
-	console.log(state)
-	console.log(action)
+	// console.log('state')
+	// console.log(state)
+	// console.log(action)
 	switch (action.type){
 		case ADD_DECK:
 			return {
