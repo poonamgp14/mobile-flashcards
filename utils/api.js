@@ -26,10 +26,65 @@ export function removeDeck (key) {
 
 export function getData(){
     return (dispatch) =>{
+      AsyncStorage.clear()
       return AsyncStorage.getItem(async_key)
         .then(values =>{
           console.log(values)
-          dispatch(receiveDecks(values))
+          let decks = formatFlashCardResults(values)
+          dispatch(receiveDecks(decks))
         })
     }
 }
+
+
+function setDefaultObjectShape () {
+  let deckData = getDecksInfo()
+  AsyncStorage.setItem(async_key, JSON.stringify(deckData))
+  return deckData
+}
+
+function returnNonEmpty (deckObject) {
+  const length = Object.keys(deckObject).length
+  const timestamp = Date.now()
+  return deckObject
+}
+
+export function formatFlashCardResults (results) {
+  console.log(results)
+  return results === null
+    ? setDefaultObjectShape()
+    : returnNonEmpty(JSON.parse(results))
+}
+
+export function getDecksInfo (deck) {
+  let decks = {
+    React: {
+      title: 'React',
+      questions: [
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces'
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event'
+        }
+      ],
+      answersSelected: []
+    },
+    JavaScript: {
+      title: 'JavaScript',
+      questions: [
+        {
+          question: 'What is a closure?',
+          answer: 'The combination of a function and the lexical environment within which that function was declared.'
+        }
+      ],
+      answersSelected: []
+    }
+  }
+  
+  return typeof deck === 'undefined' ? decks : decks[deck]
+  }
+
+

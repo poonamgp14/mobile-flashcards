@@ -1,25 +1,32 @@
 import React,  { Component }  from 'react'
-import { StyleSheet, Text, View,TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { connect } from "react-redux";
-import { addDeck } from '../actions';
-import {submitDeck} from '../utils/api'
 import SubmitBtn from './submitBtn'
-import {async_key, getData} from '../utils/api'
+import {getData} from '../utils/api'
 
 class Decks extends Component {
   componentDidMount(){
     this.props.dispatch(getData())
   }
+  toDeck = (name) => {
+    console.log(this.props.navigation)
+    this.props.navigation.dispatch(CommonActions.navigate({
+      name: 'Deck',
+      params: {name: name},
+    })
+    )
+  }
   render(){
     return (
       <View style={styles.container}>
-        <Text>{JSON.stringify(this.props.decks)}</Text>
-        {/* {Object.keys(this.props.decks[async_key]).map(deck =>{
+        <Text>
+        {this.props.deckNames.length > 0 ?
+        this.props.deckNames.map(name =>{
           return (
-            <Text>{deck}</Text>
+            <SubmitBtn onPress={this.toDeck(name)} text={name} />
           )
-        })} */}
-        
+        }) : "No Decks are created yet!"
+      }</Text>
       </View>
     )
   }
@@ -37,9 +44,11 @@ const styles = StyleSheet.create({
 
 function mapStateToProps ({decks}) {
   console.log(decks)
+  let deckNames = []
+  decks !== undefined ? deckNames = Object.keys(decks) : deckNames = [];
 
   return {
-    decks
+    deckNames
   }
 }
 

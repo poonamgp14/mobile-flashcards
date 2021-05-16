@@ -9,6 +9,8 @@ export function addDeck(deck){
 }
 
 export function receiveDecks(decks){
+	console.log("in the action, initial deck is ")
+	console.log(decks)
 	return {
 		type: RECEIVE_DECKS,
 		decks
